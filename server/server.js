@@ -23,6 +23,15 @@ app.post('/addUser', (req, res) => {
 });
 
 
+app.get('/addUser', (req, res) => {
+    newUser.find().then((doc) => {
+        res.send({doc});
+    }, (err) => {
+        res.status(400).send(err);
+    });
+});
+
+
 app.listen(100, () => {
     console.log('Express started on port 100');
 });
