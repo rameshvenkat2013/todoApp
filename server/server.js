@@ -8,6 +8,8 @@ var {newUser} = require('./models/user');
 
 var app = express();
 
+var port = process.env.port || 100;
+
 app.use(bodyParser.json());
 
 app.post('/addUser', (req, res) => {
@@ -53,6 +55,6 @@ app.get('/addUser/:id', (req, res) => {
 });
 
 
-app.listen(100, () => {
-    console.log('Express started on port 100');
+app.listen(port, () => {
+    console.log('Express started on port ', port);
 });
