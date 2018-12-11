@@ -1,3 +1,5 @@
+
+var _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
 var {ObjectID} = require('mongodb');
@@ -43,6 +45,28 @@ app.get('/removeUser/:id', (req, res) => {
     }
 
     newUser.findByIdAndRemove(id).then((doc) => {
+        if(!doc){
+            return res.status(404).send('data not found from server');
+        }else{
+            res.send({doc});
+        }
+    }, (err) => {
+        res.status(400).send(err);
+    });
+
+});
+
+
+app.patch('/updateUser/:id', (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['name', 'email']);
+
+
+    if(!ObjectID.isValid(id)){
+        res.status(404).send('id not found');
+    }
+
+    newUser.findByIdAndUpdate(id, {$set : body}, {new : true} ).then((doc) => {
         if(!doc){
             return res.status(404).send('data not found from server');
         }else{
