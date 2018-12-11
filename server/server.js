@@ -10,7 +10,7 @@ var {newUser} = require('./models/user');
 
 var app = express();
 
-var port = process.env.port || 100;
+var port = process.env.PORT || 100;
 
 app.use(bodyParser.json());
 
