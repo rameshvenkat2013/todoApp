@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongooseDb');
 var {newUser} = require('./models/user');
@@ -29,6 +30,26 @@ app.get('/addUser', (req, res) => {
     }, (err) => {
         res.status(400).send(err);
     });
+});
+
+
+
+app.get('/addUser/:id', (req, res) => {
+    id = req.params.id;
+    if(!ObjectID.isValid(id)){
+        res.status(404).send('id not found');
+    }   
+
+    newUser.findById(id).then((doc) => {
+        if(!doc){
+            return res.status(404).send('data not found from server');
+        }else{
+            res.send({doc});
+        }
+    }, (err) => {
+        res.status(400).send(err);
+    });
+
 });
 
 
