@@ -49,7 +49,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     db.collection('Todos').deleteOne({text: 'deleteones'}).then((count) => {
         console.log('User(s) Count : ' , count);
     }, (err) => {
-        console.log('Unable to the read the collections', err);
+        console.log('Unable to read the collections', err);
     });
 
     */
@@ -63,7 +63,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     db.collection('Todos').findOneAndDelete({_id: ObjectID("5c0e540142370e4623590ac4") }).then((count) => {
         console.log('User(s) Count : ' , count);
     }, (err) => {
-        console.log('Unable to the read the collections', err);
+        console.log('Unable to read the collections', err);
     });
 
     */
