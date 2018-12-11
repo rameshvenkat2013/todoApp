@@ -36,6 +36,26 @@ app.get('/addUser', (req, res) => {
 
 
 
+app.get('/removeUser/:id', (req, res) => {
+    id = req.params.id;
+    if(!ObjectID.isValid(id)){
+        res.status(404).send('id not found');
+    }
+
+    newUser.findByIdAndRemove(id).then((doc) => {
+        if(!doc){
+            return res.status(404).send('data not found from server');
+        }else{
+            res.send({doc});
+        }
+    }, (err) => {
+        res.status(400).send(err);
+    });
+
+});
+
+
+
 app.get('/addUser/:id', (req, res) => {
     id = req.params.id;
     if(!ObjectID.isValid(id)){
