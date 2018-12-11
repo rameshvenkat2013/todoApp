@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 app.post('/addUser', (req, res) => {
     var user = new newUser({
         name : req.body.name,
-        email : req.body.email
+        email : req.body.email,
+        location: req.body.location
     });
    
     user.save().then((doc) => {
