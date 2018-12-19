@@ -6,6 +6,7 @@ var {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongooseDb');
 var {newUser} = require('./models/user');
+var {loginUser} = require('./models/login');
 
 
 var app = express();
@@ -13,6 +14,20 @@ var app = express();
 var port = process.env.PORT || 100;
 
 app.use(bodyParser.json());
+
+
+app.post('/loginUser', (req, res) => {
+
+    var body = _.pick(req.body, ['email', 'password']);
+    
+    var user = new loginUser(body);   
+    user.save().then((user) => {
+        res.send(user);
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
+
 
 app.post('/addUser', (req, res) => {
     var user = new newUser({
@@ -29,7 +44,7 @@ app.post('/addUser', (req, res) => {
 });
 
 
-app.get('/addUser', (req, res) => {
+app.get('/getUser', (req, res) => {
     newUser.find().then((doc) => {
         res.send({doc});
     }, (err) => {

@@ -1,23 +1,18 @@
 
-var {mongoose} = require('../db/mongooseDb');
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 var newUser = mongoose.model('abc', {
     name : {
         type : String,
-        required : true
+        //required : true
     },
     age : {
         type : Number
     },
     location: {
         type : String
-    },
-    email: {
-        type : String,
-        require: true,
-        trim: true,
-        minlength: 1        
-    }     
+    }
 });
 
 module.exports = { newUser };
